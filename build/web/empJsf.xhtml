@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Employee</title>
+    </h:head>
+    <h:body>
+        <h1><h:outputLink value="faces/index.xhtml">Admin ></h:outputLink>Employee</h1>
+        <h:form>
+            <h:outputLabel>Employee Name : </h:outputLabel>
+            <h:inputText id="txtEmpName" value="#{empCDI.empName}"></h:inputText><br/>
+            <h:outputLabel>Department : </h:outputLabel>
+            <p:selectOneMenu required="true" value="#{empCDI.deptId}">
+                <f:selectItem itemValue="" itemLabel=" - Select Department - " itemDisabled=""></f:selectItem>
+                <f:selectItems value="#{empCDI.allDept()}" var="dept" itemValue="#{dept.deptId}" itemLabel="#{dept.deptName}" ></f:selectItems>
+            </p:selectOneMenu><br/>
+            <h:outputLabel>Salary : </h:outputLabel>
+            <h:inputText id="txtSalary" value="#{empCDI.salary}"></h:inputText><br/>
+            <h:commandButton action="#{empCDI.insertEmp()}" value="Add >"></h:commandButton>
+            
+            <h:dataTable id="empData" value="#{empCDI.viewEmp()}" var="emp" border="1">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel>Employee ID</h:outputLabel>
+                    </f:facet>
+                    <h:outputText value="#{emp.empId}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel>Employee Name</h:outputLabel>
+                    </f:facet>
+                    <h:outputText value="#{emp.empName}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel>Department</h:outputLabel>
+                    </f:facet>
+                    <h:outputText value="#{emp.deptId.deptName}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel>Salary</h:outputLabel>
+                    </f:facet>
+                    <h:outputText value="#{emp.salary}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel>Actions</h:outputLabel>
+                    </f:facet>
+                    <h:commandButton action="#{empCDI.deleteEmp(emp.empId)}" value="Delete"/>
+                    <h:commandButton action="#{empCDI.deleteEmp(emp.empId)}" value="Edit"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+
