@@ -23,6 +23,7 @@ import javax.faces.bean.SessionScoped;
 public class deptCDI {
    @EJB testBeanLocal tl;
    String deptName;
+   Integer uDeptId=0;
 
     public String getDeptName() {
         return deptName;
@@ -33,7 +34,16 @@ public class deptCDI {
     }
     
     public void insertDept(){
-        this.tl.insertDept(deptName);
+        if(uDeptId==0)
+        {
+            this.tl.insertDept(deptName);
+            deptName = null;
+        }
+        else
+        {
+            this.tl.updateDept(uDeptId, deptName);
+        }
+        
     }
     
     public Collection<TblDept> viewDept(){
@@ -44,9 +54,12 @@ public class deptCDI {
         this.tl.deleteDept(deptId);
     }
     
-    public void updateDept(Integer deptId, String deptName){
-        this.tl.updateDept(deptId, deptName);
+    public void updateDept(Integer deptId){
+        uDeptId = deptId;
+        deptName = this.tl.deptNameById(deptId);
+//        this.tl.updateDept(deptId, deptName);
     }
+    
     public deptCDI() {
     }
     

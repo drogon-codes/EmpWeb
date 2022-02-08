@@ -58,7 +58,13 @@ EntityManager em;
         td.setDeptName(dept_name);
         em.merge(td);
     }
-
+    
+    @Override
+    public String deptNameById(Integer deptId) {
+        TblDept d = em.find(TblDept.class, deptId);
+        return d.getDeptName();
+    }
+    
     @Override
     public void updateEmp(Integer emp_id, String emp_name, Integer dept_id, Integer salary) {
         TblEmp te = em.find(TblEmp.class, emp_id);
@@ -80,5 +86,25 @@ EntityManager em;
     List te = em.createNamedQuery("TblEmp.findAll").getResultList();
         return te;
     }
+
+    @Override
+    public String empNameById(Integer empId) {
+        TblEmp te = em.find(TblEmp.class, empId);
+        return te.getEmpName();
+    }
+
+    @Override
+    public Integer empDeptById(Integer empId) {
+        TblEmp te = em.find(TblEmp.class, empId);
+        return te.getDeptId().getDeptId();
+    }
+
+    @Override
+    public Integer empSalaryById(Integer empId) {
+        TblEmp te = em.find(TblEmp.class, empId);
+        return te.getSalary();
+    }
+
+    
     
 }

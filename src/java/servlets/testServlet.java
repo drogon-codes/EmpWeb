@@ -36,7 +36,7 @@ restClient rc = new restClient();
             out.println("</head>");
             out.println("<body>");
 //            rc.insertDept("Finance");
-            rc.updateDept("2", "R&D");
+//            rc.updateDept("2", "R&D");
 //            tb.insertDept("Accounting");
 //            tb.updateDept(2, "Human Resource");
 //            tb.deleteDept(1);
@@ -44,7 +44,12 @@ restClient rc = new restClient();
 //            tb.insertEmp("Suresh", 2, 15000);
 //            tb.updateEmp(1, "Mohan", 3, 14500);
 //            tb.deleteEmp(1);
-            out.println("<h1>Servlet testServlet at " + request.getContextPath() + "</h1>");
+
+            String name = tb.empNameById(5);
+            Integer sal = tb.empSalaryById(5);
+            
+            Integer dept = tb.empDeptById(5);
+            out.println("<h1>Servlet testServlet at " + name + sal + dept + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

@@ -44,6 +44,7 @@ public class RestResource {
     public void insertDept(@PathParam("dept_name") String dept_name){
         tbl.insertDept(dept_name);
     }
+    
     @PUT
     @Path("/updateDept/{dept_id}/{dept_name}")
     public void updateDept(@PathParam("dept_id") Integer dept_id, @PathParam("dept_name") String dept_name){

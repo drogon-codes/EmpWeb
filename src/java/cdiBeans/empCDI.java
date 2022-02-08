@@ -25,7 +25,7 @@ public class empCDI {
     @EJB testBeanLocal tb;
     
     String empName;
-    Integer deptId, salary;
+    Integer deptId, salary, uEmpId=0;
 
     public String getEmpName() {
         return empName;
@@ -53,7 +53,19 @@ public class empCDI {
     
     public void insertEmp()
     {
-        this.tb.insertEmp(empName, deptId, salary);
+        if(uEmpId == 0){
+            this.tb.insertEmp(empName, deptId, salary);
+            empName=null; 
+            deptId=null; 
+            salary=null;
+        }
+        else
+        {
+            this.tb.updateEmp(uEmpId, empName, deptId, salary);
+            empName=null; 
+            deptId=null; 
+            salary=null;
+        }
     }
     
     public Collection<TblEmp> viewEmp(){
@@ -66,6 +78,13 @@ public class empCDI {
     
     public Collection<TblDept> allDept(){
         return this.tb.viewDept();
+    }
+    
+    public void updateEmp(Integer empId){
+        uEmpId = empId;
+        empName = this.tb.empNameById(empId);
+        deptId = this.tb.empDeptById(empId);
+        salary = this.tb.empSalaryById(empId);
     }
     public empCDI() {
     }

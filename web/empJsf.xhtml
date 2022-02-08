@@ -9,52 +9,53 @@
         <title>Employee</title>
     </h:head>
     <h:body>
-        <h1><h:outputLink value="faces/index.xhtml">Admin ></h:outputLink>Employee</h1>
+        <h1><h:outputLink value="index.xhtml">Admin ></h:outputLink>Employee</h1>
         <h:form>
-            <h:outputLabel>Employee Name : </h:outputLabel>
-            <h:inputText id="txtEmpName" value="#{empCDI.empName}"></h:inputText><br/>
-            <h:outputLabel>Department : </h:outputLabel>
-            <p:selectOneMenu required="true" value="#{empCDI.deptId}">
+            <table>
+                <tr>
+                    <td><p:outputLabel>Employee Name : </p:outputLabel></td>
+                    <td><p:inputText id="txtEmpName" value="#{empCDI.empName}"></p:inputText></td>
+                </tr>
+                <tr>
+                    <td> <p:outputLabel>Department : </p:outputLabel></td>
+                    <td><p:selectOneMenu value="#{empCDI.deptId}">
                 <f:selectItem itemValue="" itemLabel=" - Select Department - " itemDisabled=""></f:selectItem>
                 <f:selectItems value="#{empCDI.allDept()}" var="dept" itemValue="#{dept.deptId}" itemLabel="#{dept.deptName}" ></f:selectItems>
-            </p:selectOneMenu><br/>
-            <h:outputLabel>Salary : </h:outputLabel>
-            <h:inputText id="txtSalary" value="#{empCDI.salary}"></h:inputText><br/>
-            <h:commandButton action="#{empCDI.insertEmp()}" value="Add >"></h:commandButton>
+            </p:selectOneMenu></td>
+                </tr>
+                <tr>
+                    <td> <p:outputLabel>Salary : </p:outputLabel></td>
+                    <td><p:inputText id="txtSalary" value="#{empCDI.salary}"></p:inputText></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><p:commandButton action="#{empCDI.insertEmp()}" value="Save >"></p:commandButton></td>
+                </tr>
+            </table>
             
-            <h:dataTable id="empData" value="#{empCDI.viewEmp()}" var="emp" border="1">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputLabel>Employee ID</h:outputLabel>
-                    </f:facet>
-                    <h:outputText value="#{emp.empId}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputLabel>Employee Name</h:outputLabel>
-                    </f:facet>
-                    <h:outputText value="#{emp.empName}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputLabel>Department</h:outputLabel>
-                    </f:facet>
-                    <h:outputText value="#{emp.deptId.deptName}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputLabel>Salary</h:outputLabel>
-                    </f:facet>
-                    <h:outputText value="#{emp.salary}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputLabel>Actions</h:outputLabel>
-                    </f:facet>
+            
+          
+            
+            
+
+            
+            <p:dataTable id="tblEmp" value="#{empCDI.viewEmp()}" var="emp">
+                <p:column headerText="Employee Id">
+                    <h:outputText value="#{emp.empId}"/>
+                </p:column>
+                <p:column headerText="Employee Name">
+                    <h:outputText value="#{emp.empName}"/>
+                </p:column>
+                <p:column headerText="Department">
+                    <h:outputText value="#{emp.deptId.deptName}"/>
+                </p:column>
+                <p:column headerText="Salary">
+                    <h:outputText value="#{emp.salary}"/>
+                </p:column>
+                <p:column headerText="Actions">
                     <h:commandButton action="#{empCDI.deleteEmp(emp.empId)}" value="Delete"/>
-                    <h:commandButton action="#{empCDI.deleteEmp(emp.empId)}" value="Edit"/>
-                </h:column>
-            </h:dataTable>
+                    <h:commandButton action="#{empCDI.updateEmp(emp.empId)}" value="Edit"/>
+                </p:column>
+            </p:dataTable>
         </h:form>
     </h:body>
 </html>
